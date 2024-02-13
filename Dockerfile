@@ -10,10 +10,13 @@ RUN npm install \
   && npm cache clean --force \
   && npm prune --production
 
+RUN apt-get update && apt-get install -y dos2unix
+
 # Bundle app source
 COPY . /usr/src/electron-release-server
-
 COPY config/docker.js config/local.js
+
+RUN dos2unix ./scripts/wait.sh
 
 EXPOSE 80
 
